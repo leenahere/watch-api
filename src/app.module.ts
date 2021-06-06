@@ -6,12 +6,14 @@ import { AppService } from './app.service';
 import { WatchModule } from './watch/watch.module';
 import { DiscountModule } from './discount/discount.module';
 import { UserModule } from './user/user.module';
+import { CartModule } from './cart/cart.module';
 
 @Module({
   imports: [
     DiscountModule,
     WatchModule,
     UserModule,
+    CartModule,
     GraphQLModule.forRoot({
       autoSchemaFile: 'schema.gql',
       playground: true,
