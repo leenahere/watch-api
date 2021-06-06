@@ -9,7 +9,7 @@ The project contains four modules to showcase a simple checkout action:
 - user
 - cart
 
-Considering that the API would be consumed by a *"dumb"* client, the backend holds the stage of a user's cart. So instead of creating an endpoint that calculates a total cost of a list of watches the client can access and update the cart's state through the respective endpoints. To obtain the total of a user's cart the following query can be used:
+Considering that the API would be consumed by a *"dumb"* client, the backend holds the state of a user's cart. So instead of creating an endpoint that calculates a total cost of a list of watches the client can access and update the cart's state through the respective queries/mutations. To obtain the total of a user's cart the following query can be used:
 
 ```graphql
 query {
