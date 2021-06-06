@@ -1,73 +1,69 @@
-<p align="center">
-  <a href="http://nestjs.com/" target="blank"><img src="https://nestjs.com/img/logo_text.svg" width="320" alt="Nest Logo" /></a>
-</p>
+# Watch Online Shop API
 
-[circleci-image]: https://img.shields.io/circleci/build/github/nestjs/nest/master?token=abc123def456
-[circleci-url]: https://circleci.com/gh/nestjs/nest
-  
-  <p align="center">A progressive <a href="http://nodejs.org" target="_blank">Node.js</a> framework for building efficient and scalable server-side applications.</p>
-    <p align="center">
-<a href="https://www.npmjs.com/~nestjscore" target="_blank"><img src="https://img.shields.io/npm/v/@nestjs/core.svg" alt="NPM Version" /></a>
-<a href="https://www.npmjs.com/~nestjscore" target="_blank"><img src="https://img.shields.io/npm/l/@nestjs/core.svg" alt="Package License" /></a>
-<a href="https://www.npmjs.com/~nestjscore" target="_blank"><img src="https://img.shields.io/npm/dm/@nestjs/common.svg" alt="NPM Downloads" /></a>
-<a href="https://circleci.com/gh/nestjs/nest" target="_blank"><img src="https://img.shields.io/circleci/build/github/nestjs/nest/master" alt="CircleCI" /></a>
-<a href="https://coveralls.io/github/nestjs/nest?branch=master" target="_blank"><img src="https://coveralls.io/repos/github/nestjs/nest/badge.svg?branch=master#9" alt="Coverage" /></a>
-<a href="https://discord.gg/G7Qnnhy" target="_blank"><img src="https://img.shields.io/badge/discord-online-brightgreen.svg" alt="Discord"/></a>
-<a href="https://opencollective.com/nest#backer" target="_blank"><img src="https://opencollective.com/nest/backers/badge.svg" alt="Backers on Open Collective" /></a>
-<a href="https://opencollective.com/nest#sponsor" target="_blank"><img src="https://opencollective.com/nest/sponsors/badge.svg" alt="Sponsors on Open Collective" /></a>
-  <a href="https://paypal.me/kamilmysliwiec" target="_blank"><img src="https://img.shields.io/badge/Donate-PayPal-ff3f59.svg"/></a>
-    <a href="https://opencollective.com/nest#sponsor"  target="_blank"><img src="https://img.shields.io/badge/Support%20us-Open%20Collective-41B883.svg" alt="Support us"></a>
-  <a href="https://twitter.com/nestframework" target="_blank"><img src="https://img.shields.io/twitter/follow/nestframework.svg?style=social&label=Follow"></a>
-</p>
-  <!--[![Backers on Open Collective](https://opencollective.com/nest/backers/badge.svg)](https://opencollective.com/nest#backer)
-  [![Sponsors on Open Collective](https://opencollective.com/nest/sponsors/badge.svg)](https://opencollective.com/nest#sponsor)-->
+Simple API built with [nest.js](https://nestjs.com/), [GraphQL](https://graphql.org/), [TypeORM](https://github.com/typeorm/typeorm) and PostgreSQL for showcasing operations of watch online shop.
 
-## Description
+The project contains four modules to showcase a simple checkout action:
 
-[Nest](https://github.com/nestjs/nest) framework TypeScript starter repository.
+- watch
+- discount
+- user
+- cart
 
-## Installation
+Considering that the API would be consumed by a *"dumb"* client, the backend holds the stage of a user's cart. So instead of creating an endpoint that calculates a total cost of a list of watches the client can access and update the cart's state through the respective endpoints. To obtain the total of a user's cart the following query can be used:
 
-```bash
-$ npm install
+```graphql
+query {
+  cart(id: 'cart-id') {
+    total
+  }
+}
 ```
 
-## Running the app
+To add items to a user's cart and obtain the updated total of the cart, the client can use the following mutation:
 
-```bash
-# development
-$ npm run start
-
-# watch mode
-$ npm run start:dev
-
-# production mode
-$ npm run start:prod
+```graphql
+mutation {
+  addCardItem(id: 'card-id', newItem: 'watch-id') {
+    total
+  }
+}
 ```
 
-## Test
+## Run
+
+To run the API a `docker-compose` is provided. First create a `.env` file, add the vars from `.env.example` and source the .env file locally for the PostgreSQL service:
 
 ```bash
-# unit tests
-$ npm run test
-
-# e2e tests
-$ npm run test:e2e
-
-# test coverage
-$ npm run test:cov
+source .env
 ```
 
-## Support
+The run the following command to fire up the API and a PostgreSQL:
 
-Nest is an MIT-licensed open source project. It can grow thanks to the sponsors and support by the amazing backers. If you'd like to join them, please [read more here](https://docs.nestjs.com/support).
+```bash
+docker-compose up
+```
 
-## Stay in touch
+The GraphQL playground can be accessed on [http://localhost:3000/graphql](http://localhost:3000/graphql).
 
-- Author - [Kamil Myśliwiec](https://twitter.com/kammysliwiec)
-- Website - [https://nestjs.com](https://nestjs.com/)
-- Twitter - [@nestframework](https://twitter.com/nestframework)
+To seed the db run the seed query in the playground:
 
-## License
+```graphql
+query {
+  seed
+}
+```
 
-  Nest is [MIT licensed](https://github.com/nestjs/nest/blob/master/LICENSE).
+This will create all necessary items to test out all endpoints. The seeded data can be found in `seed.resolver.ts`.
+
+## Tests
+
+For tests the Jest test framework is used. Before running build, tests are automatically run when building the docker image.
+
+Tests can be run locally with the following command:
+
+```bash
+npm run test
+```
+
+As of now only the `cart.service.spec.ts` tests are implemented and the endpoint for creating a new cart item considered to contain the vital business logic is tested. Tests for the other services would be written in the same manner.
+
