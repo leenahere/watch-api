@@ -1,4 +1,4 @@
-# Watch Online Shop API
+# ⌚️ Watch Online Shop API
 
 Simple API built with [nest.js](https://nestjs.com/), [GraphQL](https://graphql.org/), [TypeORM](https://github.com/typeorm/typeorm) and PostgreSQL for showcasing operations of watch online shop.
 
@@ -29,7 +29,7 @@ mutation {
 }
 ```
 
-## Run
+## 🏃🏼‍♀️ Run
 
 To run the API a `docker-compose` is provided. First create a `.env` file, add the vars from `.env.example` and source the .env file locally for the PostgreSQL service:
 
@@ -55,7 +55,7 @@ query {
 
 This will create all necessary items to test out all endpoints. The seeded data can be found in `seed.resolver.ts`.
 
-## Tests
+## 🧪 Tests
 
 For tests the Jest test framework is used. Before running build, tests are automatically run when building the docker image.
 
@@ -67,3 +67,14 @@ npm run test
 
 As of now only the `cart.service.spec.ts` tests are implemented and the endpoint for creating a new cart item considered to contain the vital business logic is tested. Tests for the other services would be written in the same manner.
 
+## 👷🏼‍♀️ Room for Improvement 
+
+There are several things that could be improved here to enhance usability of the API:
+
+- [ ] Increase test coverage
+- [ ] Add authorization and authentication for API
+- [ ] Add user management
+- [ ] Refactor watch module to be product module to achieve a more generic data model
+- [ ] Add error handling for adding undefined products/watches to cart
+- [ ] Add and endpoint to remove items from the cart
+- [ ] Refactor cart item data structure to already include quantity in the structure (will remove computational expensive calculations)
