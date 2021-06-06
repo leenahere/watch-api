@@ -7,6 +7,7 @@ import { WatchModule } from './watch/watch.module';
 import { DiscountModule } from './discount/discount.module';
 import { UserModule } from './user/user.module';
 import { CartModule } from './cart/cart.module';
+import { SeedModule } from './seed/seed.module';
 
 @Module({
   imports: [
@@ -30,6 +31,7 @@ import { CartModule } from './cart/cart.module';
       entities: [__dirname + '/**/*.entity{.ts,.js}'],
       synchronize: true,
     }),
+    SeedModule,
   ],
   controllers: [AppController],
   providers: [AppService],

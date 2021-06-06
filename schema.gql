@@ -1,0 +1,47 @@
+# ------------------------------------------------------
+# THIS FILE WAS AUTOMATICALLY GENERATED (DO NOT MODIFY)
+# ------------------------------------------------------
+
+type Discount {
+  id: String!
+  quantity: Float!
+  price: Float!
+}
+
+type Watch {
+  id: String!
+  name: String!
+  price: Float!
+  discountId: Discount
+}
+
+type User {
+  id: String!
+  name: String!
+}
+
+type Cart {
+  id: String!
+  items: [String!]!
+  total: Float!
+  userId: User!
+}
+
+type Query {
+  discount(id: String!): Discount!
+  discounts: [Discount!]!
+  watch(id: String!): Watch!
+  watches: [Watch!]!
+  user(id: String!): User!
+  users: [User!]!
+  cart(id: String!): Cart!
+  seed: Boolean!
+}
+
+type Mutation {
+  createDiscount(price: Float!, quantity: Float!): Discount!
+  createWatch(discountId: String!, price: Float!, name: String!): Watch!
+  createUser(name: String!): User!
+  createCart(userId: String!, total: Float!, items: [String!]!): Cart!
+  addCartItem(newItem: String!, id: String!): Cart!
+}
